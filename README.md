@@ -25,6 +25,8 @@ you would input Guess: 'stale' and Tags: 'ymnmn'
 
 ## Algorithm
 
+TLDR: This is an Expectation-Maximization problem where 1) the Expectation step prunes the search space based on the tagged guess information and computes conditional probabilities of observing each character and 2) the Maximization step finds the word which maximizes the expected information gain for a guess.
+
 The core heuristic behind the program is making guesses that greedily prune the search space by the maximum amount. In other words, we want to choose the word that will give us the most information gain in expectation. We view any given word as a "bag of characters", independent of positional information. Clearly, this assumption doesn't hold but it simplifies the computation. For every new guess, we compute the conditional probability distribution of each character in our unseen alphabet $\Sigma$ given the information we already have. In other words, for each unseen character $c_i \in \Sigma$, we compute the conditional probability of observing $c_i$ in the solution space $S$ given our knowledge base KB: $P(c_i | KB)$. These conditional probabilities can simply be computed by counting the number of times the character appears in S (with some smoothing): $$P(c_i | KB) = \frac{count(c_i, S) + \delta}{|S| + |\Sigma| * \delta}$$
 
 In reality, the denominator is a constant value and we really only care about the relative ordering of these characters so we just compute the numerator. From these character probabilities, the expected information gain for a given word w is $$Gain(w | KB) = \prod_{c_i \in w} P(c_i | KB)$$ 
