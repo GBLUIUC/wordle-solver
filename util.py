@@ -40,3 +40,7 @@ def unguess(guess, unguessed):
         unguessed = unguessed.replace(char, '')
     return unguessed
 
+# Compute the expected number of guesses
+def expected_guesses(n, len):
+    return 1 + n + len * (len - 1) / 2 / len
+

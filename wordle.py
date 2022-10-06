@@ -1,4 +1,4 @@
-from util import get_guess_tags, findOccurrences, unguess
+from util import get_guess_tags, findOccurrences, unguess, expected_guesses
 
 def main():
     
@@ -46,6 +46,8 @@ def main():
             print('You have ' + str(guesses_left) + ' guesses left so just try them all.')
             keep_suggesting = input('Or do you want me to keep helping? (y/n) ').lower()
             if keep_suggesting != 'y':
+                expected = expected_guesses(num_guesses, len(sol_space))
+                print('And it only took you ' + str(expected) + ' tries (in expectation)!')
                 return
 
         # Otherwise, suggest a word that will further prune the space
@@ -116,8 +118,7 @@ def generate_char_candidates(sol_space, unguessed):
     for char in unguessed:
         freq[char] = 0
         for word in sol_space:
-            if char in word:
-                freq[char] += 1
+            freq[char] += word.count(char)
 
     char_cand = sorted(freq, key=freq.get, reverse=True)
     return char_cand
