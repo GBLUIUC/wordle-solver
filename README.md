@@ -14,6 +14,8 @@
 ## Usage
 `python wordle.py`  
 
+Note: This solver won't help you until after you've made your first guess.
+
 After you submit each guess to Wordle, the solver will prompt you for your guessed word and its associated tags. The text format for tagging uses characters y, m, and n (yes, maybe, no) to represent Green, Yellow, and Gray tiles respectively.  
 
 For example, if your guess was:  
